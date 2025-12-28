@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Lista de unidades de saúde. Filtre por tipo e veja informações de endereço e horário."
+    />
+    <title>Guia Saúde — Unidades</title>
+
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script defer src="./js/main.js"></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="Ir para a página inicial">
+          <span class="brand-mark" aria-hidden="true">+</span>
+          <span class="brand-text">Guia Saúde</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Navegação principal">
+          <ul class="nav-list">
+            <li><a href="./index.html">Início</a></li>
+            <li><a href="./como-funciona.html">Como funciona</a></li>
+            <li><a href="./triagem.html">Triagem</a></li>
+            <li><a href="./unidades.html" aria-current="page">Unidades</a></li>
+            <li><a href="./contato.html">Contato</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="hero" aria-labelledby="titulo-unidades">
+        <div class="container hero-inner">
+          <article class="hero-text">
+            <h1 id="titulo-unidades">Unidades de saúde</h1>
+            <p>
+              Veja a listagem de unidades e filtre por tipo (UBS/UPA/Hospital).
+              Em uma etapa seguinte, vamos permitir ordenar por proximidade usando geolocalização.
+            </p>
+
+            <div class="hero-actions">
+              <button class="btn btn-primary" type="button" id="btn-usar-localizacao">
+                Usar minha localização
+              </button>
+              <a class="btn btn-outline" href="./triagem.html">Voltar para triagem</a>
+            </div>
+
+            <p class="disclaimer" role="note">
+              <strong>Privacidade:</strong> a localização só será usada para calcular distâncias no seu navegador.
+              Não armazenamos seu endereço.
+            </p>
+          </article>
+
+          <figure class="hero-media">
+            <img
+              src="./assets/2085cd5d-86c8-4e57-bb27-1f425f5b6b58.png"
+              alt="Ilustração de um mapa com marcador de local"
+              loading="lazy"
+            />
+            <figcaption>Encontre unidades e organize por tipo.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section aria-labelledby="titulo-filtros">
+        <div class="container">
+          <h2 id="titulo-filtros">Filtros</h2>
+
+          <article class="card" aria-label="Filtros de unidades">
+            <div class="form-row">
+              <div>
+                <label for="filtro-tipo">Tipo de unidade</label>
+                <select id="filtro-tipo" name="tipo" style="width: 100%; padding: 0.7rem 0.8rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+                  <option value="todas">Todas</option>
+                  <option value="ubs">UBS</option>
+                  <option value="upa">UPA</option>
+                  <option value="hospital">Hospital</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="busca-unidade">Buscar por nome/bairro</label>
+                <input
+                  id="busca-unidade"
+                  type="text"
+                  placeholder="Ex.: Centro, Planalto, UBS..."
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+
+            <p class="muted" style="margin-top: 0.75rem;">
+              Em breve, estes filtros vão funcionar com JavaScript consumindo <code>/api/unidades</code>.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="titulo-lista">
+        <div class="container">
+          <h2 id="titulo-lista">Lista de unidades</h2>
+
+          <!-- Aqui o JS vai renderizar cards dinamicamente via API -->
+          <section id="lista-unidades" class="cards" aria-label="Lista de unidades de saúde">
+            <!-- fallback -->
+            <article class="card">
+              <h3>Unidades (carregamento)</h3>
+              <p class="muted">
+                A lista de unidades será carregada automaticamente quando conectarmos a API.
+              </p>
+            </article>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <figure class="footer-figure">
+          <img
+            src="./assets/images.jfif"
+            alt="Imagem ilustrativa de equipe trabalhando em um projeto"
+            loading="lazy"
+          />
+          <figcaption>Projeto acadêmico — Desenvolvido por Estudantes da UFCQXD</figcaption>
+        </figure>
+
+        <div class="footer-text">
+          <p>
+            <strong>Projeto acadêmico:</strong> este site não fornece diagnóstico e não substitui
+            atendimento profissional.
+          </p>
+          <p class="muted">© 2025 — Guia Saúde (Trabalho Final)</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

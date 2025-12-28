@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Triagem informativa por sintomas. Selecione sintomas e veja uma orientação geral (não é diagnóstico)."
+    />
+    <title>Guia Saúde — Triagem</title>
+
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script defer src="./js/main.js"></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="Ir para a página inicial">
+          <span class="brand-mark" aria-hidden="true">+</span>
+          <span class="brand-text">Guia Saúde</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Navegação principal">
+          <ul class="nav-list">
+            <li><a href="./index.html">Início</a></li>
+            <li><a href="./como-funciona.html">Como funciona</a></li>
+            <li><a href="./triagem.html" aria-current="page">Triagem</a></li>
+            <li><a href="./unidades.html">Unidades</a></li>
+            <li><a href="./contato.html">Contato</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="hero" aria-labelledby="titulo-triagem">
+        <div class="container hero-inner">
+          <article class="hero-text">
+            <h1 id="titulo-triagem">Triagem informativa por sintomas</h1>
+            <p>
+              Selecione os sintomas abaixo para receber uma orientação geral sobre qual
+              tipo de atendimento procurar (UBS/UPA/Hospital).
+            </p>
+
+            <p class="disclaimer" role="note">
+              <strong>Aviso:</strong> isto <strong>não é diagnóstico</strong>. Em caso de sinais de alerta,
+              procure atendimento imediato.
+            </p>
+
+            <div class="hero-actions">
+              <button class="btn btn-primary" type="button" id="btn-gerar-orientacao">
+                Ver orientação
+              </button>
+              <button class="btn btn-outline" type="button" id="btn-limpar-sintomas">
+                Limpar seleção
+              </button>
+            </div>
+          </article>
+
+          <figure class="hero-media">
+            <img
+              src="./assets/2085cd5d-86c8-4e57-bb27-1f425f5b6b58.png"
+              alt="Ilustração de orientação e triagem em saúde"
+              loading="lazy"
+            />
+            <figcaption>Selecione sintomas para receber uma orientação geral.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section aria-labelledby="titulo-selecao">
+        <div class="container">
+          <h2 id="titulo-selecao">Selecione seus sintomas</h2>
+
+          <article class="card" aria-label="Área de seleção de sintomas">
+            <div class="form-row" style="margin-bottom: 1rem;">
+              <div>
+                <label for="busca-sintoma">Buscar sintoma</label>
+                <input
+                  id="busca-sintoma"
+                  type="text"
+                  placeholder="Ex.: febre, tosse, dor..."
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+
+            <!-- Aqui o JS vai preencher dinamicamente via API /api/sintomas -->
+            <section
+              id="lista-sintomas"
+              aria-label="Lista de sintomas"
+              style="display: flex; gap: 0.75rem; flex-wrap: wrap;"
+            >
+              <!-- fallback estático (apenas para não ficar vazio antes do JS/API) -->
+              <article class="card" style="flex: 1 1 240px;">
+                <h3>Sintomas (carregamento)</h3>
+                <p class="muted">
+                  A lista de sintomas será carregada automaticamente quando conectarmos a API.
+                </p>
+              </article>
+            </section>
+
+            <p class="muted" style="margin-top: 0.75rem;">
+              Dica: na próxima etapa, os sintomas virão do backend via <code>fetch(GET)</code>.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="alerts" aria-labelledby="titulo-alertas">
+        <div class="container">
+          <h2 id="titulo-alertas">Sinais de alerta</h2>
+
+          <article class="alert-box" role="region" aria-label="Sinais de alerta para procurar emergência">
+            <p>Procure atendimento imediato se houver:</p>
+            <ul>
+              <li>Falta de ar intensa</li>
+              <li>Dor forte no peito</li>
+              <li>Desmaio, confusão ou convulsão</li>
+              <li>Sangramento intenso</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="titulo-resultado">
+        <div class="container">
+          <h2 id="titulo-resultado">Resultado</h2>
+
+          <article class="card" id="resultado-triagem" aria-live="polite">
+            <h3>Orientação aparecerá aqui</h3>
+            <p class="muted">
+              Selecione alguns sintomas e clique em <strong>“Ver orientação”</strong>.
+              Depois vamos fazer isso funcionar com JavaScript + API.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <figure class="footer-figure">
+          <img
+            src="./assets/images.jfif"
+            alt="Imagem ilustrativa de equipe trabalhando em um projeto"
+            loading="lazy"
+          />
+          <figcaption>Projeto acadêmico — Desenvolvido por Estudantes da UFCQXD</figcaption>
+        </figure>
+
+        <div class="footer-text">
+          <p>
+            <strong>Projeto acadêmico:</strong> este site não fornece diagnóstico e não substitui
+            atendimento profissional.
+          </p>
+          <p class="muted">© 2025 — Guia Saúde (Trabalho Final)</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Fale com a equipe do projeto Guia Saúde. Página de contato do trabalho final de Desenvolvimento Web."
+    />
+    <title>Guia Saúde — Contato</title>
+
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script defer src="./js/main.js"></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="Ir para a página inicial">
+          <span class="brand-mark" aria-hidden="true">+</span>
+          <span class="brand-text">Guia Saúde</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Navegação principal">
+          <ul class="nav-list">
+            <li><a href="./index.html">Início</a></li>
+            <li><a href="./como-funciona.html">Como funciona</a></li>
+            <li><a href="./triagem.html">Triagem</a></li>
+            <li><a href="./unidades.html">Unidades</a></li>
+            <li><a href="./contato.html" aria-current="page">Contato</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="hero" aria-labelledby="titulo-contato">
+        <div class="container hero-inner">
+          <article class="hero-text">
+            <h1 id="titulo-contato">Contato</h1>
+            <p>
+              Use o formulário abaixo para enviar sugestões sobre o projeto.
+              (O envio real será implementado se vocês quiserem — por enquanto é demonstração.)
+            </p>
+
+            <p class="disclaimer" role="note">
+              <strong>Aviso:</strong> este site é um projeto acadêmico e não oferece atendimento médico.
+              Em urgência/emergência, procure um serviço de saúde imediatamente.
+            </p>
+          </article>
+
+          <figure class="hero-media">
+            <img
+              src="./assets/2085cd5d-86c8-4e57-bb27-1f425f5b6b58.png"
+              alt="Imagem ilustrativa de comunicação e atendimento ao público"
+              loading="lazy"
+            />
+            <figcaption>Canal de contato para dúvidas e sugestões sobre o projeto.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section aria-labelledby="titulo-form">
+        <div class="container">
+          <h2 id="titulo-form">Envie uma mensagem</h2>
+
+          <article class="card" aria-label="Formulário de contato">
+            <form id="form-contato" novalidate>
+              <div class="form-row">
+                <div>
+                  <label for="nome">Nome</label>
+                  <input
+                    id="nome"
+                    name="nome"
+                    type="text"
+                    placeholder="Seu nome"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label for="email">E-mail</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="seuemail@exemplo.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div style="margin-top: 1rem;">
+                <label for="mensagem">Mensagem</label>
+                <textarea
+                  id="mensagem"
+                  name="mensagem"
+                  placeholder="Escreva sua mensagem..."
+                  required
+                ></textarea>
+              </div>
+
+              <div style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <button class="btn btn-primary" type="submit">Enviar</button>
+                <button class="btn btn-outline" type="reset">Limpar</button>
+              </div>
+
+              <p class="muted" style="margin-top: 0.75rem;">
+                Dica: depois podemos validar e mostrar um aviso com JavaScript (sem enviar para servidor).
+              </p>
+            </form>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <figure class="footer-figure">
+          <img
+            src="./assets/images.jfif"
+            alt="Ilustração de saúde e orientação"
+            loading="lazy"
+          />
+          <figcaption>Projeto acadêmico — Desenvolvido por Estudantes da UFCQXD</figcaption>
+        </figure>
+
+        <div class="footer-text">
+          <p>
+            <strong>Projeto acadêmico:</strong> este site não fornece diagnóstico e não substitui
+            atendimento profissional.
+          </p>
+          <p class="muted">© 2025 — Guia Saúde (Trabalho Final)</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

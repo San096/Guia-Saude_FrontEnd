@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      name="description"
+      content="Guia informativo por sintomas e unidades de saúde. Projeto acadêmico de Desenvolvimento Web."
+    />
+    <title>Guia Saúde — Início</title>
+
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script defer src="./js/main.js"></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="Ir para a página inicial">
+          <span class="brand-mark" aria-hidden="true">+</span>
+          <span class="brand-text">Guia Saúde</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Navegação principal">
+          <ul class="nav-list">
+            <li><a href="./index.html" aria-current="page">Início</a></li>
+            <li><a href="./como-funciona.html">Como funciona</a></li>
+            <li><a href="./triagem.html">Triagem</a></li>
+            <li><a href="./unidades.html">Unidades</a></li>
+            <li><a href="./contato.html">Contato</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="hero" aria-labelledby="titulo-hero">
+        <div class="container hero-inner">
+          <article class="hero-text">
+            <h1 id="titulo-hero">Orientação por sintomas e unidades de saúde</h1>
+            <p>
+              Selecione sintomas e receba uma orientação informativa sobre qual tipo de
+              atendimento procurar (UBS/UPA/Hospital), além de visualizar unidades disponíveis.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="./triagem.html">Fazer triagem</a>
+              <a class="btn btn-outline" href="./unidades.html">Ver unidades</a>
+            </div>
+
+            <p class="disclaimer" role="note">
+              <strong>Aviso:</strong> este site é um projeto acadêmico e <strong>não</strong> substitui
+              avaliação profissional. Em caso de emergência, procure atendimento imediato.
+            </p>
+          </article>
+
+          <figure class="hero-media">
+            <img
+              src="./assets/2085cd5d-86c8-4e57-bb27-1f425f5b6b58.png"
+              alt="Ilustração de atendimento em saúde e orientação ao paciente"
+              loading="lazy"
+            />
+            <figcaption>Guia informativo para direcionamento de atendimento.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="steps" aria-labelledby="titulo-steps">
+        <div class="container">
+          <h2 id="titulo-steps">Como funciona</h2>
+
+          <div class="cards">
+            <article class="card">
+              <h3>1) Selecione sintomas</h3>
+              <p>Escolha os sinais que você está sentindo na página de triagem.</p>
+            </article>
+
+            <article class="card">
+              <h3>2) Receba orientação</h3>
+              <p>O site exibe uma recomendação informativa (não é diagnóstico).</p>
+            </article>
+
+            <article class="card">
+              <h3>3) Encontre unidades</h3>
+              <p>Visualize unidades e, se quiser, use sua localização para ver as mais próximas.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="alerts" aria-labelledby="titulo-alertas">
+        <div class="container">
+          <h2 id="titulo-alertas">Sinais de alerta</h2>
+
+          <article class="alert-box" role="region" aria-label="Sinais de alerta para procurar emergência">
+            <p>
+              Procure atendimento imediato se houver:
+            </p>
+            <ul>
+              <li>Falta de ar intensa</li>
+              <li>Dor forte no peito</li>
+              <li>Desmaio, confusão ou convulsão</li>
+              <li>Sangramento intenso</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="highlights" aria-labelledby="titulo-destaques">
+        <div class="container">
+          <h2 id="titulo-destaques">Destaques</h2>
+
+          <div class="cards">
+            <article class="card">
+              <h3>Triagem dinâmica</h3>
+              <p></p>
+            </article>
+
+            <article class="card">
+              <h3>Unidades de saúde</h3>
+              <p>Listagem de unidades em cards, com filtros e ordenação.</p>
+            </article>
+
+            <article class="card">
+              <h3>Acessibilidade</h3>
+              <p></p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <figure class="footer-figure">
+          <img
+            src="./assets/images.jfif"
+            alt="Imagem ilustrativa de equipe trabalhando em um projeto"
+            loading="lazy"
+          />
+          <figcaption>Projeto acadêmico — Desenvolvido por Estudantes da UFCQXD</figcaption>
+        </figure>
+
+        <div class="footer-text">
+          <p>
+            <strong>Projeto acadêmico:</strong> Este site não fornece diagnóstico e não substitui
+            atendimento profissional.
+          </p>
+          <p class="muted">© 2025 — Guia Saúde (Trabalho Final)</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
