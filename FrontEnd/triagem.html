@@ -13,7 +13,7 @@
     <script defer src="./js/main.js"></script>
   </head>
 
-  <body>
+  <body class="page-triagem">
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
     <header class="site-header">
@@ -36,6 +36,7 @@
     </header>
 
     <main id="conteudo">
+      <!-- HERO (agora sem botões aqui) -->
       <section class="hero" aria-labelledby="titulo-triagem">
         <div class="container hero-inner">
           <article class="hero-text">
@@ -49,20 +50,11 @@
               <strong>Aviso:</strong> isto <strong>não é diagnóstico</strong>. Em caso de sinais de alerta,
               procure atendimento imediato.
             </p>
-
-            <div class="hero-actions">
-              <button class="btn btn-primary" type="button" id="btn-gerar-orientacao">
-                Ver orientação
-              </button>
-              <button class="btn btn-outline" type="button" id="btn-limpar-sintomas">
-                Limpar seleção
-              </button>
-            </div>
           </article>
 
           <figure class="hero-media">
             <img
-              src="./assets/2085cd5d-86c8-4e57-bb27-1f425f5b6b58.png"
+              src="./assets/images/hero.jpg"
               alt="Ilustração de orientação e triagem em saúde"
               loading="lazy"
             />
@@ -71,12 +63,27 @@
         </div>
       </section>
 
+      <!-- RESULTADO (agora no topo ✅) -->
+      <section aria-labelledby="titulo-resultado">
+        <div class="container">
+          <h2 id="titulo-resultado">Resultado</h2>
+
+          <article class="card" id="resultado-triagem" aria-live="polite">
+            <h3>Orientação aparecerá aqui</h3>
+            <p class="muted">
+              Selecione alguns sintomas abaixo e clique em <strong>“Ver orientação”</strong>.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SELEÇÃO DE SINTOMAS (botões ficam aqui ✅) -->
       <section aria-labelledby="titulo-selecao">
         <div class="container">
           <h2 id="titulo-selecao">Selecione seus sintomas</h2>
 
           <article class="card" aria-label="Área de seleção de sintomas">
-            <div class="form-row" style="margin-bottom: 1rem;">
+            <div class="form-row" style="margin-bottom: 0.75rem;">
               <div>
                 <label for="busca-sintoma">Buscar sintoma</label>
                 <input
@@ -88,13 +95,25 @@
               </div>
             </div>
 
-            <!-- Aqui o JS vai preencher dinamicamente via API /api/sintomas -->
+            <!-- BOTÕES perto dos sintomas -->
+            <div class="actions-bar" aria-label="Ações da triagem">
+              <button class="btn btn-primary" type="button" id="btn-gerar-orientacao">
+                Ver orientação
+              </button>
+              <button class="btn btn-outline" type="button" id="btn-limpar-sintomas">
+                Limpar seleção
+              </button>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Lista dinâmica via JS -->
             <section
               id="lista-sintomas"
               aria-label="Lista de sintomas"
               style="display: flex; gap: 0.75rem; flex-wrap: wrap;"
             >
-              <!-- fallback estático (apenas para não ficar vazio antes do JS/API) -->
+              <!-- fallback -->
               <article class="card" style="flex: 1 1 240px;">
                 <h3>Sintomas (carregamento)</h3>
                 <p class="muted">
@@ -103,13 +122,14 @@
               </article>
             </section>
 
-            <p class="muted" style="margin-top: 0.75rem;">
-              Dica: na próxima etapa, os sintomas virão do backend via <code>fetch(GET)</code>.
+            <p class="muted" style="margin-top: 0.9rem;">
+              Dica: os sintomas são carregados do backend via <code>fetch(GET)</code>.
             </p>
           </article>
         </div>
       </section>
 
+      <!-- ALERTAS -->
       <section class="alerts" aria-labelledby="titulo-alertas">
         <div class="container">
           <h2 id="titulo-alertas">Sinais de alerta</h2>
@@ -125,31 +145,17 @@
           </article>
         </div>
       </section>
-
-      <section aria-labelledby="titulo-resultado">
-        <div class="container">
-          <h2 id="titulo-resultado">Resultado</h2>
-
-          <article class="card" id="resultado-triagem" aria-live="polite">
-            <h3>Orientação aparecerá aqui</h3>
-            <p class="muted">
-              Selecione alguns sintomas e clique em <strong>“Ver orientação”</strong>.
-              Depois vamos fazer isso funcionar com JavaScript + API.
-            </p>
-          </article>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer">
       <div class="container footer-inner">
         <figure class="footer-figure">
           <img
-            src="./assets/images.jfif"
+            src="./assets/images/equipe.jpg"
             alt="Imagem ilustrativa de equipe trabalhando em um projeto"
             loading="lazy"
           />
-          <figcaption>Projeto acadêmico — Desenvolvido por Estudantes da UFCQXD</figcaption>
+          <figcaption>Projeto acadêmico — Desenvolvimento Web</figcaption>
         </figure>
 
         <div class="footer-text">

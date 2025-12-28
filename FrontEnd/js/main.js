@@ -399,9 +399,20 @@
     searchEl?.addEventListener("input", (e) => renderSintomas(e.target.value));
 
     // Botões
-    btnGerar.addEventListener("click", async () => {
-      await renderResult(getSelectedIds());
-    });
+   btnGerar.addEventListener("click", async () => {
+  btnGerar.disabled = true;
+  const old = btnGerar.textContent;
+  btnGerar.textContent = "Gerando...";
+
+  try {
+    await renderResult(getSelectedIds());
+  } finally {
+    btnGerar.disabled = false;
+    btnGerar.textContent = old;
+  }
+  resultEl.scrollIntoView({ behavior: "smooth", block: "start" }); //  função que leva direto para o resultado depois que clicar em resultado
+});
+
 
     btnLimpar?.addEventListener("click", () => {
       qsa('input[name="sintoma"]', listEl).forEach((i) => (i.checked = false));
