@@ -19,7 +19,13 @@
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="./index.html" aria-label="Ir para a página inicial">
-          <span class="brand-mark" aria-hidden="true">+</span>
+          <img
+            class="brand-logo"
+            src="./assets/LOGO.png"
+            alt="Logo do Guia Saúde"
+            width="36"
+            height="36"
+          />
           <span class="brand-text">Guia Saúde</span>
         </a>
 
@@ -36,19 +42,25 @@
     </header>
 
     <main id="conteudo">
+      <!-- HERO -->
       <section class="hero" aria-labelledby="titulo-contato">
         <div class="container hero-inner">
           <article class="hero-text">
             <h1 id="titulo-contato">Contato</h1>
             <p>
-              Use o formulário abaixo para enviar sugestões sobre o projeto.
-              (O envio real será implementado se vocês quiserem — por enquanto é demonstração.)
+              Tem alguma sugestão para melhorar o <strong>Guia Saúde</strong>?
+              Envie uma mensagem pelo formulário abaixo.
             </p>
 
             <p class="disclaimer" role="note">
-              <strong>Aviso:</strong> este site é um projeto acadêmico e não oferece atendimento médico.
+              <strong>Projeto acadêmico:</strong> este site não oferece atendimento médico.
               Em urgência/emergência, procure um serviço de saúde imediatamente.
             </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-outline" href="./triagem.html">Ir para triagem</a>
+              <a class="btn btn-primary" href="./unidades.html">Ver unidades</a>
+            </div>
           </article>
 
           <figure class="hero-media">
@@ -62,6 +74,34 @@
         </div>
       </section>
 
+      <!-- CANAIS (opcional, mas melhora UX) -->
+      <section aria-labelledby="titulo-canais">
+        <div class="container">
+          <h2 id="titulo-canais">Canais de contato</h2>
+          <p class="section-subtitle">
+            Para fins acadêmicos, estes canais são demonstrativos. Use o formulário para enviar sua mensagem.
+          </p>
+
+          <div class="cards">
+            <article class="card">
+              <h3>E-mail</h3>
+              <p class="muted">contato@guiasaude.com (exemplo)</p>
+            </article>
+
+            <article class="card">
+              <h3>WhatsApp</h3>
+              <p class="muted">(88) 9 0000-0000 (exemplo)</p>
+            </article>
+
+            <article class="card">
+              <h3>Tempo de resposta</h3>
+              <p class="muted">Até 2 dias úteis (simulação).</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORM -->
       <section aria-labelledby="titulo-form">
         <div class="container">
           <h2 id="titulo-form">Envie uma mensagem</h2>
@@ -77,6 +117,7 @@
                     type="text"
                     placeholder="Seu nome"
                     required
+                    autocomplete="name"
                   />
                 </div>
 
@@ -88,6 +129,7 @@
                     type="email"
                     placeholder="seuemail@exemplo.com"
                     required
+                    autocomplete="email"
                   />
                 </div>
               </div>
@@ -108,7 +150,7 @@
               </div>
 
               <p class="muted" style="margin-top: 0.75rem;">
-                Dica: depois podemos validar e mostrar um aviso com JavaScript (sem enviar para servidor).
+                Este formulário é validado com JavaScript (demonstração). Nenhum dado é armazenado.
               </p>
             </form>
           </article>
@@ -117,22 +159,48 @@
     </main>
 
     <footer class="site-footer">
-      <div class="container footer-inner">
-        <figure class="footer-figure">
-          <img
-            src="./assets/images.jfif"
-            alt="Ilustração de saúde e orientação"
-            loading="lazy"
-          />
-          <figcaption>Projeto acadêmico — Desenvolvido por Estudantes da UFCQXD</figcaption>
-        </figure>
-
-        <div class="footer-text">
+      <div class="container footer-wrap">
+        <section class="footer-alert" aria-label="Aviso do projeto">
+          <span class="footer-alert-icon" aria-hidden="true">⚠️</span>
           <p>
-            <strong>Projeto acadêmico:</strong> este site não fornece diagnóstico e não substitui
-            atendimento profissional.
+            <strong>Projeto Acadêmico</strong> — Este site não substitui atendimento médico profissional.
+            Em caso de emergência, ligue <strong>192 (SAMU)</strong>.
           </p>
-          <p class="muted">© 2025 — Guia Saúde (Trabalho Final)</p>
+        </section>
+
+        <section class="footer-grid" aria-label="Informações do rodapé">
+          <nav class="footer-col" aria-label="Links de navegação">
+            <h3>Navegação</h3>
+            <ul>
+              <li><a href="./index.html">Início</a></li>
+              <li><a href="./como-funciona.html">Como Funciona</a></li>
+              <li><a href="./triagem.html">Triagem</a></li>
+              <li><a href="./unidades.html">Unidades</a></li>
+              <li><a href="./contato.html">Contato</a></li>
+            </ul>
+          </nav>
+
+          <section class="footer-col" aria-label="Informações do projeto">
+            <h3>Informações</h3>
+            <ul>
+              <li>Este é um projeto educacional</li>
+              <li>Dados de exemplo baseados em informações públicas</li>
+              <li>Não armazena informações pessoais</li>
+            </ul>
+          </section>
+
+          <section class="footer-col" aria-label="Contatos de emergência">
+            <h3>Emergência</h3>
+            <ul class="footer-emergency">
+              <li><strong>SAMU:</strong> <a href="tel:192">192</a></li>
+              <li><strong>Bombeiros:</strong> <a href="tel:193">193</a></li>
+              <li><strong>Polícia:</strong> <a href="tel:190">190</a></li>
+            </ul>
+          </section>
+        </section>
+
+        <div class="footer-bottom">
+          <p class="muted">© 2026 — Guia Saúde (Trabalho Final)</p>
         </div>
       </div>
     </footer>

@@ -19,7 +19,13 @@
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="./index.html" aria-label="Ir para a página inicial">
-          <span class="brand-mark" aria-hidden="true">+</span>
+          <img
+            class="brand-logo"
+            src="./assets/LOGO.png"
+            alt="Logo do Guia Saúde"
+            width="36"
+            height="36"
+          />
           <span class="brand-text">Guia Saúde</span>
         </a>
 
@@ -36,19 +42,20 @@
     </header>
 
     <main id="conteudo">
+      <!-- HERO -->
       <section class="hero" aria-labelledby="titulo-como">
         <div class="container hero-inner">
           <article class="hero-text">
             <h1 id="titulo-como">Como funciona o Guia Saúde</h1>
             <p>
               O site ajuda a organizar informações e orientar o usuário sobre
-              <strong>qual tipo de atendimento procurar</strong>, com base em sintomas selecionados.
-              <strong>Não é diagnóstico</strong> e não substitui atendimento profissional.
+              <strong>qual tipo de atendimento procurar</strong> (UBS, UPA ou Hospital)
+              com base nos sintomas selecionados.
             </p>
 
             <p class="disclaimer" role="note">
-              <strong>Importante:</strong> em caso de emergência, procure atendimento imediato
-              (ex.: UPA/Hospital) ou ligue para o serviço de urgência da sua região.
+              <strong>Importante:</strong> o Guia Saúde <strong>não</strong> fornece diagnóstico e não substitui
+              atendimento profissional. Em caso de emergência, procure atendimento imediato.
             </p>
 
             <div class="hero-actions">
@@ -63,40 +70,44 @@
               alt="Ilustração de orientação em saúde com atendimento e suporte"
               loading="lazy"
             />
-            <figcaption>Informação e orientação para buscar o serviço adequado.</figcaption>
+            <figcaption>Orientação informativa para ajudar a buscar o serviço adequado.</figcaption>
           </figure>
         </div>
       </section>
 
+      <!-- PASSO A PASSO -->
       <section class="steps" aria-labelledby="titulo-passos">
         <div class="container">
           <h2 id="titulo-passos">Passo a passo</h2>
+          <p class="section-subtitle">
+            Use a triagem, veja a orientação e escolha uma unidade para atendimento.
+          </p>
 
           <div class="cards">
             <article class="card">
-              <h3>1) Você seleciona sintomas</h3>
-              <p>Na página de triagem, você marca os sinais que está sentindo.</p>
+              <h3>1) Selecione os sintomas</h3>
+              <p>Na triagem, marque os sintomas que você está sentindo.</p>
             </article>
 
             <article class="card">
-              <h3>2) O site exibe uma orientação</h3>
+              <h3>2) Veja a orientação</h3>
               <p>
-                A orientação é baseada em regras informativas (não é diagnóstico) e inclui
-                sinais de alerta.
+                O site exibe uma recomendação informativa do tipo de atendimento (UBS/UPA/Hospital)
+                e destaca sinais de alerta.
               </p>
             </article>
 
             <article class="card">
-              <h3>3) Você encontra unidades</h3>
+              <h3>3) Escolha uma unidade</h3>
               <p>
-                Você pode ver a lista de unidades e (em etapas futuras) usar sua localização para
-                ver as mais próximas.
+                Mostramos unidades sugeridas e você pode abrir o endereço no mapa para se direcionar.
               </p>
             </article>
           </div>
         </div>
       </section>
 
+      <!-- ALERTAS -->
       <section class="alerts" aria-labelledby="titulo-alertas">
         <div class="container">
           <h2 id="titulo-alertas">Quando procurar emergência</h2>
@@ -108,36 +119,67 @@
               <li>Dor forte no peito</li>
               <li>Desmaio, confusão intensa ou convulsão</li>
               <li>Sangramento intenso</li>
-              <li>Febre alta persistente em crianças pequenas</li>
+              <li>Piora rápida do estado geral</li>
             </ul>
           </article>
         </div>
       </section>
 
+      <!-- FAQ (mais útil pro usuário) -->
       <section class="highlights" aria-labelledby="titulo-faq">
         <div class="container">
           <h2 id="titulo-faq">Perguntas frequentes</h2>
 
-          <!-- Sem CSS extra, <details> já é acessível e funciona bem -->
           <div class="cards">
             <article class="card">
               <h3>Isso é um diagnóstico?</h3>
-              <p><strong>Não.</strong> É apenas orientação informativa para ajudar no direcionamento.</p>
+              <p>
+                <strong>Não.</strong> O resultado é uma orientação informativa para ajudar no direcionamento.
+                Se você estiver preocupado, procure atendimento profissional.
+              </p>
             </article>
 
             <article class="card">
-              <h3>De onde vêm os dados?</h3>
+              <h3>Como escolher entre UBS, UPA e Hospital?</h3>
               <p>
-                As informações (sintomas, orientações e unidades) serão fornecidas por uma API do nosso backend
-                (Node.js + Express), em formato JSON.
+                Em geral, <strong>UBS</strong> atende casos menos urgentes, <strong>UPA</strong> atende urgências,
+                e <strong>Hospital</strong> é indicado para casos mais graves. O site sugere um caminho, mas você
+                deve procurar ajuda se estiver piorando.
               </p>
             </article>
 
             <article class="card">
               <h3>O que fazer se eu estiver muito mal?</h3>
               <p>
-                Procure atendimento imediato. A triagem sempre destacará sinais de alerta para urgência.
+                Procure atendimento imediato. Se for uma emergência, ligue <strong>192 (SAMU)</strong>.
               </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- TECNOLOGIAS (bom pro trabalho, sem atrapalhar o usuário) -->
+      <section aria-labelledby="titulo-tec">
+        <div class="container">
+          <h2 id="titulo-tec">Tecnologias do projeto</h2>
+          <p class="section-subtitle">
+            Esta seção existe para documentar o desenvolvimento do trabalho acadêmico.
+          </p>
+
+          <div class="cards">
+            <article class="card">
+              <h3>Frontend</h3>
+              <p>HTML5 semântico, CSS (Flexbox + responsividade) e JavaScript para interações.</p>
+            </article>
+
+            <article class="card">
+              <h3>Conteúdo dinâmico</h3>
+              <p>Consumo de dados via <code>fetch(GET)</code> a partir de uma API REST.</p>
+            </article>
+
+            <article class="card">
+              <h3>Backend</h3>
+              <p>API em FastAPI retornando dados em JSON (sintomas, orientações e unidades).</p>
             </article>
           </div>
         </div>
@@ -145,22 +187,48 @@
     </main>
 
     <footer class="site-footer">
-      <div class="container footer-inner">
-        <figure class="footer-figure">
-          <img
-            src="./assets/images.jfif"
-            alt="Imagem ilustrativa de equipe trabalhando em um projeto"
-            loading="lazy"
-          />
-          <figcaption>Projeto acadêmico — Desenvolvido por Estudantes da UFCQXD</figcaption>
-        </figure>
-
-        <div class="footer-text">
+      <div class="container footer-wrap">
+        <section class="footer-alert" aria-label="Aviso do projeto">
+          <span class="footer-alert-icon" aria-hidden="true">⚠️</span>
           <p>
-            <strong>Projeto acadêmico:</strong> este site não fornece diagnóstico e não substitui
-            atendimento profissional.
+            <strong>Projeto Acadêmico</strong> — Este site não substitui atendimento médico profissional.
+            Em caso de emergência, ligue <strong>192 (SAMU)</strong>.
           </p>
-          <p class="muted">© 2025 — Guia Saúde (Trabalho Final)</p>
+        </section>
+
+        <section class="footer-grid" aria-label="Informações do rodapé">
+          <nav class="footer-col" aria-label="Links de navegação">
+            <h3>Navegação</h3>
+            <ul>
+              <li><a href="./index.html">Início</a></li>
+              <li><a href="./como-funciona.html">Como Funciona</a></li>
+              <li><a href="./triagem.html">Triagem</a></li>
+              <li><a href="./unidades.html">Unidades</a></li>
+              <li><a href="./contato.html">Contato</a></li>
+            </ul>
+          </nav>
+
+          <section class="footer-col" aria-label="Informações do projeto">
+            <h3>Informações</h3>
+            <ul>
+              <li>Este é um projeto educacional</li>
+              <li>Dados de exemplo baseados em informações públicas</li>
+              <li>Não armazena informações pessoais</li>
+            </ul>
+          </section>
+
+          <section class="footer-col" aria-label="Contatos de emergência">
+            <h3>Emergência</h3>
+            <ul class="footer-emergency">
+              <li><strong>SAMU:</strong> <a href="tel:192">192</a></li>
+              <li><strong>Bombeiros:</strong> <a href="tel:193">193</a></li>
+              <li><strong>Polícia:</strong> <a href="tel:190">190</a></li>
+            </ul>
+          </section>
+        </section>
+
+        <div class="footer-bottom">
+          <p class="muted">© 2026 — Guia Saúde (Trabalho Final)</p>
         </div>
       </div>
     </footer>
