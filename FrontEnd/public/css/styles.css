@@ -610,3 +610,64 @@ textarea{
     align-items: flex-start;
   }
 }
+/* ======================================================
+   Menu sanduíche (responsivo)
+   ====================================================== */
+
+.menu-toggle{
+  display: none; /* aparece só no mobile */
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.9);
+  font-size: 20px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 140ms ease, box-shadow 200ms ease;
+}
+
+.menu-toggle:hover{
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+/* Mobile: esconder menu e mostrar botão */
+@media (max-width: 760px){
+  .menu-toggle{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* menu fechado */
+  .site-nav{
+    display: none;
+    position: absolute;
+    top: 64px;            
+    right: 4%;
+    width: min(340px, 92%);
+    background: rgba(255,255,255,.96);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 10px;
+    box-shadow: var(--shadow);
+  }
+
+  /* menu aberto */
+  .site-nav.is-open{
+    display: block;
+  }
+
+  .site-nav .nav-list{
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .site-nav a{
+    justify-content: flex-start;
+    padding: 12px 12px;
+    border-radius: 12px;
+  }
+}

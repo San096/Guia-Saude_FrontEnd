@@ -16,24 +16,35 @@
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="brand" href="./index.html" aria-label="Ir para a página inicial">
-          <span class="brand-mark" aria-hidden="true">+</span>
-          <span class="brand-text">Guia Saúde</span>
-        </a>
+   <header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="./index.html" aria-label="Ir para a página inicial">
+      <img class="brand-logo" src="./assets/LOGO.png" alt="Logo do Guia Saúde" width="36" height="36" />
+      <span class="brand-text">Guia Saúde</span>
+    </a>
 
-        <nav class="site-nav" aria-label="Navegação principal">
-          <ul class="nav-list">
-            <li><a href="./index.html">Início</a></li>
-            <li><a href="./como-funciona.html">Como funciona</a></li>
-            <li><a href="./triagem.html">Triagem</a></li>
-            <li><a href="./unidades.html" aria-current="page">Unidades</a></li>
-            <li><a href="./contato.html">Contato</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Abrir menu"
+      aria-controls="menu-principal"
+      aria-expanded="false"
+    >
+      ☰
+    </button>
+
+    <nav class="site-nav" id="menu-principal" aria-label="Navegação principal">
+      <ul class="nav-list">
+              <li><a href="./index.html">Início</a></li>
+              <li><a href="./como-funciona.html">Como Funciona</a></li>
+              <li><a href="./triagem.html">Triagem</a></li>
+              <li><a href="./unidades.html">Unidades</a></li>
+              <li><a href="./contato.html">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
 
     <main id="conteudo">
       <section class="hero" aria-labelledby="titulo-unidades">

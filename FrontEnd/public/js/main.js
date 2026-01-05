@@ -8,13 +8,16 @@
 (function () {
   "use strict";
 
-  // Ajuste a porta aqui se seu backend estiver em outra:
-  // FastAPI recomendado: uvicorn ... --port 3333
+  // ✅ Coloque aqui a URL do seu backend (Render)
+  // Ex.: "https://guia-saude-backend.onrender.com"
+  const PROD_API_BASE = "https://SEU_BACKEND.onrender.com";
+
+  // Local: usa localhost | Online: usa Render
   const API_BASE =
     window.location.hostname === "localhost" ||
     window.location.hostname === "127.0.0.1"
       ? "http://localhost:3333"
-      : "";
+      : PROD_API_BASE;
 
   /* -------------------- Utilidades -------------------- */
   function qs(sel, root = document) {
@@ -64,8 +67,48 @@
     `;
   }
 
+  /* ======================================================
+     MENU MOBILE (hambúrguer)
+     ====================================================== */
+  function initMenuMobile() {
+    const btn = document.querySelector(".menu-toggle");
+    const nav = document.querySelector(".site-nav");
+
+    if (!btn || !nav) return;
+
+    function openMenu() {
+      nav.classList.add("is-open");
+      btn.setAttribute("aria-expanded", "true");
+      btn.setAttribute("aria-label", "Fechar menu");
+    }
+
+    function closeMenu() {
+      nav.classList.remove("is-open");
+      btn.setAttribute("aria-expanded", "false");
+      btn.setAttribute("aria-label", "Abrir menu");
+    }
+
+    btn.addEventListener("click", () => {
+      const isOpen = nav.classList.contains("is-open");
+      if (isOpen) closeMenu();
+      else openMenu();
+    });
+
+    nav.addEventListener("click", (e) => {
+      if (e.target.tagName === "A") closeMenu();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
+
+    document.addEventListener("click", (e) => {
+      const clickedInside = nav.contains(e.target) || btn.contains(e.target);
+      if (!clickedInside) closeMenu();
+    });
+  }
+
   /* -------------------- Fallback (mock) -------------------- */
-  // Sintomas / orientações (fallback caso API não esteja rodando ainda)
   const FALLBACK_SINTOMAS = [
     { id: "febre", nome: "Febre", peso: 2, categoria: "Geral" },
     { id: "tosse", nome: "Tosse", peso: 1, categoria: "Respiratório" },
@@ -94,7 +137,6 @@
     ],
   };
 
-  // Unidades (referência Prefeitura) — fallback
   const FALLBACK_UNIDADES = [
     {
       id: 13,
@@ -166,9 +208,6 @@
 
   /* ======================================================
      TRIAGEM (triagem.html)
-     - carrega sintomas + orientações
-     - gera resultado
-     - lista unidades sugeridas conforme direcionamento
      ====================================================== */
   async function initTriagem() {
     const listEl = qs("#lista-sintomas");
@@ -238,14 +277,12 @@
     }
 
     function getRecommendation({ score, hasAlerta }) {
-      // Informativo (não diagnóstico)
       if (hasAlerta) return { nivel: "Alta urgência", destino: "hospital", key: "emergencia" };
       if (score >= 6) return { nivel: "Urgência moderada", destino: "upa", key: "upa" };
       return { nivel: "Baixa urgência", destino: "ubs", key: "ubs" };
     }
 
     async function carregarUnidadesParaRecomendacao(rec) {
-      // Se for "hospital", faz sentido mostrar também UPA (direcionamento: UPA/Hospital)
       const tipos = rec.destino === "hospital" ? ["hospital", "upa"] : [rec.destino];
 
       const results = await Promise.all(
@@ -256,7 +293,6 @@
         })
       );
 
-      // Achata
       return results.flat();
     }
 
@@ -273,7 +309,6 @@
         return;
       }
 
-      // Mostra no máximo 3 para ficar limpo (mude para 5 se quiser)
       const top = unidades.slice(0, 3);
 
       containerEl.innerHTML = `
@@ -353,7 +388,6 @@
       const msg = orientacoes.mensagens?.[rec.key] || "Procure atendimento se necessário.";
       const dicas = Array.isArray(orientacoes.dicasGerais) ? orientacoes.dicasGerais : [];
 
-      // Render inicial (com placeholder das unidades)
       resultEl.innerHTML = `
         <div class="card">
           <h3 style="margin-top:0;">Resultado (orientação informativa)</h3>
@@ -386,33 +420,29 @@
         </section>
       `;
 
-      // Carregar e renderizar unidades sugeridas
       const containerUnidades = qs("#resultado-unidades", resultEl);
       const unidades = await carregarUnidadesParaRecomendacao(rec);
       renderUnidadesNoResultado(containerUnidades, unidades);
     }
 
-    // Inicial
     renderSintomas("");
 
-    // Busca
     searchEl?.addEventListener("input", (e) => renderSintomas(e.target.value));
 
-    // Botões
-   btnGerar.addEventListener("click", async () => {
-  btnGerar.disabled = true;
-  const old = btnGerar.textContent;
-  btnGerar.textContent = "Gerando...";
+    btnGerar.addEventListener("click", async () => {
+      btnGerar.disabled = true;
+      const old = btnGerar.textContent;
+      btnGerar.textContent = "Gerando...";
 
-  try {
-    await renderResult(getSelectedIds());
-  } finally {
-    btnGerar.disabled = false;
-    btnGerar.textContent = old;
-  }
-  resultEl.scrollIntoView({ behavior: "smooth", block: "start" }); //  função que leva direto para o resultado depois que clicar em resultado
-});
-
+      try {
+        await renderResult(getSelectedIds());
+        // ✅ leva o usuário ao resultado depois de gerar
+        resultEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      } finally {
+        btnGerar.disabled = false;
+        btnGerar.textContent = old;
+      }
+    });
 
     btnLimpar?.addEventListener("click", () => {
       qsa('input[name="sintoma"]', listEl).forEach((i) => (i.checked = false));
@@ -427,9 +457,6 @@
 
   /* ======================================================
      UNIDADES (unidades.html)
-     - lista unidades via API (ou fallback)
-     - filtro e busca
-     - geolocalização: sem lat/lng não calcula distância, mas mantém o recurso
      ====================================================== */
   async function initUnidades() {
     const listEl = qs("#lista-unidades");
@@ -467,7 +494,6 @@
         return;
       }
 
-      // Aviso se localização foi ativada mas não temos lat/lng
       const hasCoords = filtered.some((u) => u.lat != null && u.lng != null);
       const topoAviso =
         userPos && !hasCoords
@@ -591,6 +617,7 @@
 
   /* -------------------- Inicialização -------------------- */
   document.addEventListener("DOMContentLoaded", () => {
+    initMenuMobile();
     initTriagem();
     initUnidades();
     initContato();
