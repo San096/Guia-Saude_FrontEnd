@@ -1,23 +1,14 @@
 /* ======================================================
    Guia Saúde - main.js (vanilla JS)
-   - Conteúdo dinâmico via fetch GET (API própria)
-   - Triagem mostra orientação + unidades sugeridas (Prefeitura como referência)
-   - Página Unidades: lista + filtro + mapa + fonte
+   
+  
    ====================================================== */
 
 (function () {
   "use strict";
 
-  // ✅ Coloque aqui a URL do seu backend (Render)
-  // Ex.: "https://guia-saude-backend.onrender.com"
-  const PROD_API_BASE = "https://SEU_BACKEND.onrender.com";
-
-  // Local: usa localhost | Online: usa Render
-  const API_BASE =
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1"
-      ? "http://localhost:3333"
-      : PROD_API_BASE;
+ 
+  const API_BASE = "https://guia-sa-de-backend.onrender.com";
 
   /* -------------------- Utilidades -------------------- */
   function qs(sel, root = document) {
@@ -41,14 +32,18 @@
       .replace(/\p{Diacritic}/gu, "");
   }
 
-  async function fetchJSON(path, fallback) {
-    try {
-      const res = await fetch(`${API_BASE}${path}`, { method: "GET" });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return await res.json();
-    } catch {
-      return fallback;
+  async function fetchJSON(path) {
+    const url = `${API_BASE}${path}`;
+    const res = await fetch(url, { method: "GET" });
+
+    if (!res.ok) {
+      let detail = "";
+      try {
+        detail = await res.text();
+      } catch {}
+      throw new Error(`Falha na API (${res.status}) em ${path}. ${detail}`);
     }
+    return await res.json();
   }
 
   function showInlineMessage(container, type, title, message) {
@@ -89,9 +84,7 @@
     }
 
     btn.addEventListener("click", () => {
-      const isOpen = nav.classList.contains("is-open");
-      if (isOpen) closeMenu();
-      else openMenu();
+      nav.classList.contains("is-open") ? closeMenu() : openMenu();
     });
 
     nav.addEventListener("click", (e) => {
@@ -108,104 +101,6 @@
     });
   }
 
-  /* -------------------- Fallback (mock) -------------------- */
-  const FALLBACK_SINTOMAS = [
-    { id: "febre", nome: "Febre", peso: 2, categoria: "Geral" },
-    { id: "tosse", nome: "Tosse", peso: 1, categoria: "Respiratório" },
-    { id: "dor_garganta", nome: "Dor de garganta", peso: 1, categoria: "Respiratório" },
-    { id: "dor_cabeca", nome: "Dor de cabeça", peso: 1, categoria: "Geral" },
-    { id: "vomitos", nome: "Vômitos persistentes", peso: 2, categoria: "Gastro" },
-    { id: "diarreia", nome: "Diarreia", peso: 1, categoria: "Gastro" },
-    { id: "dor_abdominal_intensa", nome: "Dor abdominal intensa", peso: 3, categoria: "Gastro" },
-    { id: "falta_ar", nome: "Falta de ar", peso: 5, categoria: "Alerta" },
-    { id: "dor_peito", nome: "Dor forte no peito", peso: 6, categoria: "Alerta" },
-    { id: "desmaio_confusao", nome: "Desmaio/confusão", peso: 6, categoria: "Alerta" },
-  ];
-
-  const FALLBACK_ORIENTACOES = {
-    sinaisAlerta: ["falta_ar", "dor_peito", "desmaio_confusao"],
-    mensagens: {
-      emergencia:
-        "Procure atendimento imediato (UPA/Hospital). Se possível, peça ajuda e não dirija se estiver mal.",
-      upa: "Procure uma UPA/atendimento de urgência para avaliação em tempo curto.",
-      ubs: "Procure uma UBS/atenção primária para avaliação e orientações.",
-    },
-    dicasGerais: [
-      "Mantenha hidratação (se tolerado).",
-      "Descanse e observe evolução dos sintomas.",
-      "Se piorar, procure atendimento.",
-    ],
-  };
-
-  const FALLBACK_UNIDADES = [
-    {
-      id: 13,
-      nome: "Hospital Municipal Dr. Eudásio Barroso",
-      tipo: "hospital",
-      endereco: "RUA DOUTOR EUDASIO BARROSO, 2324 - CENTRO - EM FRENTE A PRAÇA - QUIXADÁ",
-      bairro: "Centro",
-      horario: "24 H",
-      telefone: null,
-      email: null,
-      fonteUrl: "https://quixada.ce.gov.br/unidadesaude.php?id=13",
-    },
-    {
-      id: 97,
-      nome: "UPA 24H de Quixadá",
-      tipo: "upa",
-      endereco: "RUA DOS VOLUNTARIOS, SN - PLANALTO RENASCER - QUIXADÁ",
-      bairro: "Planalto Renascer",
-      horario: "SEMPRE ABERTO",
-      telefone: null,
-      email: null,
-      fonteUrl: "https://quixada.ce.gov.br/unidadesaude.php?id=97",
-    },
-    {
-      id: 17,
-      nome: "Posto de Saúde do Centro",
-      tipo: "ubs",
-      endereco: "RUA EPITACIO PESSOA, S/N - CENTRO - ZONA URBANA - QUIXADÁ",
-      bairro: "Centro",
-      horario: "SEGUNDA À QUINTA: 7:30–11:30 / 13:30–17:30; SEXTA: 7:30–13:30",
-      telefone: null,
-      email: null,
-      fonteUrl: "https://quixada.ce.gov.br/unidadesaude.php?id=17",
-    },
-    {
-      id: 18,
-      nome: "Posto de Saúde do Combate",
-      tipo: "ubs",
-      endereco: "RUA JOSÉ ENEAS MONTEIRO LESSA, S/N - COMBATE - ZONA URBANA - QUIXADÁ",
-      bairro: "Combate",
-      horario: "SEGUNDA À QUINTA: 7:30–11:30 / 13:30–17:30; SEXTA: 7:30–13:30",
-      telefone: null,
-      email: null,
-      fonteUrl: "https://quixada.ce.gov.br/unidadesaude.php?id=18",
-    },
-    {
-      id: 92,
-      nome: "UBS de Carrascal",
-      tipo: "ubs",
-      endereco: "RUA JOSE DE QUEIROZ PESSOA, 3641 - CARRASCAL - QUIXADÁ",
-      bairro: "Carrascal",
-      horario: "SEGUNDA À QUINTA: 7:30–11:30 / 13:30–17:30; SEXTA: 7:30–13:30",
-      telefone: null,
-      email: null,
-      fonteUrl: "https://quixada.ce.gov.br/unidadesaude.php?id=92",
-    },
-    {
-      id: 1,
-      nome: "UBS Eliezer Fortes Magalhães (Cipó dos Anjos)",
-      tipo: "ubs",
-      endereco: "DISTRITO CIPÓ DOS ANJOS, SN - CIPÓ DOS ANJOS - QUIXADÁ",
-      bairro: "Cipó dos Anjos",
-      horario: "07:30 AS 17:00",
-      telefone: null,
-      email: "cipodosanjosubs@gmail.com",
-      fonteUrl: "https://quixada.ce.gov.br/unidadesaude.php?id=1",
-    },
-  ];
-
   /* ======================================================
      TRIAGEM (triagem.html)
      ====================================================== */
@@ -218,8 +113,29 @@
 
     if (!listEl || !btnGerar || !resultEl) return;
 
-    const sintomas = await fetchJSON("/api/sintomas", FALLBACK_SINTOMAS);
-    const orientacoes = await fetchJSON("/api/orientacoes", FALLBACK_ORIENTACOES);
+    let sintomas = [];
+    let orientacoes = null;
+
+    try {
+      sintomas = await fetchJSON("/api/sintomas");
+      orientacoes = await fetchJSON("/api/orientacoes");
+    } catch (err) {
+      console.error(err);
+      showInlineMessage(
+        resultEl,
+        "error",
+        "Servidor indisponível",
+        "Não foi possível conectar ao backend. Verifique se o Render está online e se o CORS está liberado para a Vercel."
+      );
+      listEl.innerHTML = `
+        <article class="card">
+          <h3>Não foi possível carregar os sintomas</h3>
+          <p class="muted">A API está inacessível no momento.</p>
+        </article>
+      `;
+      btnGerar.disabled = true;
+      return;
+    }
 
     function renderSintomas(filterText = "") {
       const f = normalize(filterText);
@@ -270,7 +186,7 @@
       }
 
       const hasAlerta = selectedIds.some((id) =>
-        (orientacoes.sinaisAlerta || []).includes(String(id))
+        (orientacoes?.sinaisAlerta || []).includes(String(id))
       );
 
       return { score, hasAlerta };
@@ -287,8 +203,7 @@
 
       const results = await Promise.all(
         tipos.map(async (t) => {
-          const fallback = FALLBACK_UNIDADES.filter((u) => String(u.tipo).toLowerCase() === t);
-          const data = await fetchJSON(`/api/unidades?tipo=${encodeURIComponent(t)}`, fallback);
+          const data = await fetchJSON(`/api/unidades?tipo=${encodeURIComponent(t)}`);
           return Array.isArray(data) ? data : [];
         })
       );
@@ -314,9 +229,6 @@
       containerEl.innerHTML = `
         <div class="card" style="background:#f8fafc;">
           <h3 style="margin-top:0;">Unidades sugeridas</h3>
-          <p class="muted" style="margin:.25rem 0 .75rem;">
-            Baseado no direcionamento acima, aqui estão algumas opções:
-          </p>
 
           <div style="display:flex; gap:1rem; flex-wrap:wrap;">
             ${top
@@ -326,8 +238,6 @@
                 const bairro = escapeHTML(u.bairro || "-");
                 const end = escapeHTML(u.endereco || "-");
                 const hor = escapeHTML(u.horario || "-");
-                const tel = escapeHTML(u.telefone || "-");
-                const email = escapeHTML(u.email || "-");
                 const fonteUrl = u.fonteUrl ? String(u.fonteUrl) : null;
 
                 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -346,8 +256,6 @@
                     <p class="muted" style="margin:.15rem 0;"><strong>Tipo:</strong> ${tipo} • <strong>Bairro:</strong> ${bairro}</p>
                     <p class="muted" style="margin:.15rem 0;"><strong>Endereço:</strong> ${end}</p>
                     <p class="muted" style="margin:.15rem 0;"><strong>Horário:</strong> ${hor}</p>
-                    <p class="muted" style="margin:.15rem 0;"><strong>Telefone:</strong> ${tel}</p>
-                    <p class="muted" style="margin:.15rem 0;"><strong>E-mail:</strong> ${email}</p>
 
                     <div style="margin-top:.65rem; display:flex; gap:.6rem; flex-wrap:wrap;">
                       <a class="btn btn-primary" href="${escapeHTML(
@@ -360,10 +268,6 @@
               })
               .join("")}
           </div>
-
-          <p class="muted" style="margin:.75rem 0 0;">
-            Observação: esta lista é informativa e pode não refletir lotação/atendimento no momento.
-          </p>
         </div>
       `;
     }
@@ -385,8 +289,8 @@
       const destinoLabel =
         rec.destino === "hospital" ? "UPA/Hospital" : rec.destino.toUpperCase();
 
-      const msg = orientacoes.mensagens?.[rec.key] || "Procure atendimento se necessário.";
-      const dicas = Array.isArray(orientacoes.dicasGerais) ? orientacoes.dicasGerais : [];
+      const msg = orientacoes?.mensagens?.[rec.key] || "Procure atendimento se necessário.";
+      const dicas = Array.isArray(orientacoes?.dicasGerais) ? orientacoes.dicasGerais : [];
 
       resultEl.innerHTML = `
         <div class="card">
@@ -421,12 +325,22 @@
       `;
 
       const containerUnidades = qs("#resultado-unidades", resultEl);
-      const unidades = await carregarUnidadesParaRecomendacao(rec);
-      renderUnidadesNoResultado(containerUnidades, unidades);
+
+      try {
+        const unidades = await carregarUnidadesParaRecomendacao(rec);
+        renderUnidadesNoResultado(containerUnidades, unidades);
+      } catch (err) {
+        console.error(err);
+        containerUnidades.innerHTML = `
+          <div class="card" style="background:#fff1f2; border-color:#fecdd3;">
+            <h3 style="margin-top:0;">Falha ao buscar unidades</h3>
+            <p class="muted" style="margin:0;">A API não respondeu. Verifique CORS e se o Render está online.</p>
+          </div>
+        `;
+      }
     }
 
     renderSintomas("");
-
     searchEl?.addEventListener("input", (e) => renderSintomas(e.target.value));
 
     btnGerar.addEventListener("click", async () => {
@@ -436,7 +350,6 @@
 
       try {
         await renderResult(getSelectedIds());
-        // ✅ leva o usuário ao resultado depois de gerar
         resultEl.scrollIntoView({ behavior: "smooth", block: "start" });
       } finally {
         btnGerar.disabled = false;
@@ -466,7 +379,21 @@
 
     if (!listEl) return;
 
-    const unidades = await fetchJSON("/api/unidades", FALLBACK_UNIDADES);
+    let unidades = [];
+
+    try {
+      unidades = await fetchJSON("/api/unidades");
+    } catch (err) {
+      console.error(err);
+      listEl.innerHTML = `
+        <article class="card" style="background:#fff1f2; border-color:#fecdd3;">
+          <h3>Servidor indisponível</h3>
+          <p class="muted">Não foi possível carregar as unidades a partir da API.</p>
+        </article>
+      `;
+      return;
+    }
+
     let userPos = null;
 
     function matchesFilters(u) {
@@ -494,20 +421,6 @@
         return;
       }
 
-      const hasCoords = filtered.some((u) => u.lat != null && u.lng != null);
-      const topoAviso =
-        userPos && !hasCoords
-          ? `
-            <article class="card" style="background:#eff6ff; border-color:#bfdbfe;">
-              <h3 style="margin-top:0;">Localização ativada</h3>
-              <p class="muted" style="margin:0;">
-                As unidades não possuem coordenadas (lat/lng), então não dá para calcular “mais próxima”.
-                Use <strong>Abrir no mapa</strong> para ver a unidade no Google Maps pelo endereço.
-              </p>
-            </article>
-          `
-          : "";
-
       const cards = filtered
         .map((u) => {
           const nome = escapeHTML(u.nome || "Unidade");
@@ -515,8 +428,6 @@
           const bairro = escapeHTML(u.bairro || "-");
           const end = escapeHTML(u.endereco || "-");
           const hor = escapeHTML(u.horario || "-");
-          const tel = escapeHTML(u.telefone || "-");
-          const email = escapeHTML(u.email || "-");
           const fonteUrl = u.fonteUrl ? String(u.fonteUrl) : null;
 
           const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -537,8 +448,6 @@
               </p>
               <p class="muted" style="margin:.25rem 0;"><strong>Endereço:</strong> ${end}</p>
               <p class="muted" style="margin:.25rem 0;"><strong>Horário:</strong> ${hor}</p>
-              <p class="muted" style="margin:.25rem 0;"><strong>Telefone:</strong> ${tel}</p>
-              <p class="muted" style="margin:.25rem 0;"><strong>E-mail:</strong> ${email}</p>
 
               <div style="margin-top:.8rem; display:flex; gap:.6rem; flex-wrap:wrap;">
                 <a class="btn btn-primary" href="${escapeHTML(
@@ -551,7 +460,7 @@
         })
         .join("");
 
-      listEl.innerHTML = topoAviso + cards;
+      listEl.innerHTML = cards;
     }
 
     render();
