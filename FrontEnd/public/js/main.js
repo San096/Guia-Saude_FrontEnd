@@ -192,11 +192,32 @@
       return { score, hasAlerta };
     }
 
-    function getRecommendation({ score, hasAlerta }) {
-      if (hasAlerta) return { nivel: "Alta urgência", destino: "hospital", key: "emergencia" };
-      if (score >= 6) return { nivel: "Urgência moderada", destino: "upa", key: "upa" };
-      return { nivel: "Baixa urgência", destino: "ubs", key: "ubs" };
-    }
+
+    const SINAIS_CAPS = [
+  "ansiedade_intensa",
+  "depressao",
+  "insonia_grave",
+  "ideacao_suicida",
+  "surto_psicotico",
+];
+
+
+    function getRecommendation({ score, hasAlerta, hasCaps }) {
+  
+  if (hasAlerta) {
+    return { nivel: "Alta urgência", destino: "hospital", key: "emergencia" };
+  }
+
+  
+  if (hasCaps) {
+   
+    return { nivel: "Atenção em saúde mental", destino: "caps", key: "caps" };
+  }
+
+  
+  if (score >= 6) return { nivel: "Urgência moderada", destino: "upa", key: "upa" };
+  return { nivel: "Baixa urgência", destino: "ubs", key: "ubs" };
+}
 
     async function carregarUnidadesParaRecomendacao(rec) {
       const tipos = rec.destino === "hospital" ? ["hospital", "upa"] : [rec.destino];
@@ -284,10 +305,16 @@
       }
 
       const { score, hasAlerta } = scoreFromSelection(selectedIds);
-      const rec = getRecommendation({ score, hasAlerta });
+      const hasCaps = selectedIds.some((id) => SINAIS_CAPS.includes(String(id)));
+      const rec = getRecommendation({ score, hasAlerta, hasCaps });
 
-      const destinoLabel =
-        rec.destino === "hospital" ? "UPA/Hospital" : rec.destino.toUpperCase();
+
+     const destinoLabel =
+       rec.destino === "hospital"
+    ? "UPA/Hospital"
+    : rec.destino === "caps"
+    ? "CAPS"
+    : rec.destino.toUpperCase();
 
       const msg = orientacoes?.mensagens?.[rec.key] || "Procure atendimento se necessário.";
       const dicas = Array.isArray(orientacoes?.dicasGerais) ? orientacoes.dicasGerais : [];
